@@ -1,0 +1,19 @@
+.test {
+    /* max-height: 80vh; */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.test-title {
+    text-align: center;
+    padding: 5px 0;
+    background-color: #e3b10c;
+}
+
+@media screen and (max-width: 360px) {
+
+    .test-title {
+        font-size: 1.1rem;
+    }
+}

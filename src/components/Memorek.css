@@ -1,0 +1,8 @@
+.memorek {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}

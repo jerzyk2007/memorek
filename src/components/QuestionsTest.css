@@ -1,0 +1,38 @@
+.questions_test {
+    min-height: 10%;
+    background-color: rgb(155, 223, 248);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.questions_test-title {
+    text-align: center;
+    font-size: 1.4rem;
+    padding: 10px;
+}
+
+@media screen and (max-width: 960px) {
+
+    .questions_test {
+        font-size: .8rem;
+    }
+
+    .questions_test-title {
+        font-size: 1.3rem;
+        padding: 5px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+
+    .questions_test {
+        font-size: .7rem;
+    }
+
+    .questions_test-title {
+        font-size: 1rem;
+    }
+}

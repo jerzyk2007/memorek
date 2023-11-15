@@ -1,0 +1,41 @@
+.user_menu {
+    position: sticky;
+    bottom: 0;
+    background-color: rgb(92, 201, 87);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 60px;
+}
+
+.user_menu-link,
+.user_menu-button {
+    font-size: 1.8rem;
+    color: #fff;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user_menu-button--active {
+    color: blue;
+}
+
+.user_menu-link:active,
+.user_menu-button:active {
+    color: red;
+}
+
+@media screen and (max-width: 300px) {
+
+    .user_menu {
+        height: 50px;
+    }
+
+    .user_menu-link,
+    .user_menu-button {
+        font-size: 1.5rem;
+
+    }
+}

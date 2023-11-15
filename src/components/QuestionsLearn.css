@@ -1,0 +1,7 @@
+.questions {
+    background-color: rgb(113, 205, 238);
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

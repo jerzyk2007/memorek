@@ -1,0 +1,17 @@
+.persist_login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    max-width: 250px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.1rem;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 30px;
+    border: 2px solid black;
+}

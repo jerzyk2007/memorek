@@ -1,11 +1,7 @@
 .App {
   flex-grow: 1;
+  width: 100%;
   max-width: 600px;
-  height: 100vh;
-  max-height: 100vh;
   display: flex;
-  /* flex-direction: column; */
-  /* justify-content: flex-start; */
-  /* align-items: center; */
-  background-color: aqua;
+  flex-direction: column;
 }
