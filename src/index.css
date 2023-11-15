@@ -14,13 +14,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  overflow-x: hidden;
+  /* display: flex; */
+  /* overflow-x: hidden; */
 }
 
 #root {
-  flex-grow: 1;
+  /* flex-grow: 1; */
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  /* align-items: center; */
+
 }
