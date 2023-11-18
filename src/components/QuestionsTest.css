@@ -6,6 +6,9 @@
     justify-content: center;
     align-items: center;
     user-select: none;
+    margin: 10px auto;
+    box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
+    width: 95%;
 }
 
 .questions_test-title {

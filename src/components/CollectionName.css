@@ -18,6 +18,7 @@
     font-size: 1rem;
     margin: 0 10px;
     background: rgb(251, 221, 54);
+    box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
     cursor: pointer;
     letter-spacing: 1px;
     font-weight: bold;

@@ -1,10 +1,20 @@
 .test_result {
-    flex-grow: 1;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .test_result-title {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
     text-align: center;
+    background-color: #fff;
+    padding: 10px 0;
+}
+
+.test_result-answers {
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .test_result__container {
@@ -26,7 +36,8 @@
     border-radius: 10px;
     padding: 5px 10px;
     text-align: center;
-    width: 100%;
+    width: 95%;
+    box-shadow: 2px 2px 3px 2px rgb(106, 132, 134);
 }
 
 .test_result-answer--correct {

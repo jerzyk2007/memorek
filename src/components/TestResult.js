@@ -28,7 +28,10 @@ const TestResult = ({ itemTest }) => {
     return (
         <div className="test_result">
             <h2 className="test_result-title">Twój wynik {result}/{itemTest.length}</h2>
-            {showAnswers}
+            <section className="test_result-answers">
+                {showAnswers}
+
+            </section>
         </div>
     );
 };
