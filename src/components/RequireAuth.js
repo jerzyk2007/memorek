@@ -9,14 +9,14 @@ const RequireAuth = ({ allowedRoles }) => {
 
     useEffect(() => {
         if (!auth?.username) {
-            navigate('/memorek/login');
+            navigate('/login');
         }
     }, [auth, navigate]);
 
     return (
         auth?.roles?.find(role => allowedRoles?.includes(role))
             ? <Outlet />
-            : <Navigate to='/memorek/login' />
+            : <Navigate to='/login' />
     );
 
 };

@@ -24,7 +24,7 @@ const Learn = () => {
 
     useEffect(() => {
         if (phrases.length === 0) {
-            navigate('/memorek/collections');
+            navigate('/collections');
         }
     }, [phrases, navigate]);
 

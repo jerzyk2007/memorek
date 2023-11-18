@@ -5,44 +5,51 @@ import { SlControlPlay, SlUser, SlBookOpen, SlList, SlGraduation, SlShuffle, SlA
 import './UserMenu.css';
 
 const UserMenu = () => {
-    // const { LearnOrTest, languageSwitch, setLanguageSwitch, changeMenu, setChangeMenu, auth } = useData();
+    const { LearnOrTest, languageSwitch, setLanguageSwitch, changeMenu, setChangeMenu, auth } = useData();
 
     return (
         <div className="user_menu">
-            {/* <Link to="/" className="user_menu-link"> */}
-            <SlBookOpen />
-            {/* </Link> */}
-            {/* <Link to="/memorek/" className="user_menu-link">
+            <Link to="/" className="user_menu-link">
                 <SlBookOpen />
             </Link>
-            {LearnOrTest === 'learn' && changeMenu && <Link to="/memorek/learn" className="user_menu-link" >
+            {LearnOrTest === 'learn' && changeMenu && <Link to="/learn" className="user_menu-link" >
                 <SlControlPlay />
             </Link>}
-            {LearnOrTest === 'test' && changeMenu && <Link to="/memorek/test" className="user_menu-link" >
+            {LearnOrTest === 'test' && changeMenu && <Link to="/test" className="user_menu-link" >
                 <SlGraduation />
             </Link>}
-            {!changeMenu && <Link to="/memorek/search" className="user_menu-link" >
+            {!changeMenu && <Link to="/search" className="user_menu-link" >
                 <SlMagnifier />
             </Link>}
-            {changeMenu ? <Link to="/memorek/collections" className="user_menu-link" >
+            {changeMenu ? <Link to="/collections" className="user_menu-link" >
                 <SlList />
-            </Link> : <Link to="/memorek/add-data" className="user_menu-link" >
+            </Link> : <Link to="/add-data" className="user_menu-link" >
                 <SlShareAlt />
             </Link>}
             {changeMenu
-                ? <SlShuffle className={languageSwitch
-                    ? "user_menu-button" : "user_menu-button user_menu-button--active"} onClick={() => setLanguageSwitch(!languageSwitch)} />
+                ?
+                <Link className={languageSwitch
+                    ? "user_menu-link" : "user_menu-link user_menu-link--active"} >
+                    <SlShuffle onClick={() => setLanguageSwitch(prev => !prev)} />
+                </Link>
                 :
-                <Link to="/memorek/user-settings" className="user_menu-link" >
+                <Link to="/user-settings" className="user_menu-link" >
                     <SlSettings />
                 </Link>}
             {!auth?.username
-                ? < Link to="/memorek/login" className="user_menu-link" >
+                ? < Link to="/login" className="user_menu-link" >
                     <SlUser />
                 </Link>
                 : changeMenu
-                    ? <SlActionUndo className="user_menu-button" onClick={() => setChangeMenu(!changeMenu)} />
-                    : <SlActionRedo className="user_menu-button" onClick={() => setChangeMenu(!changeMenu)} />} */}
+                    ?
+                    < Link className="user_menu-link" >
+                        <SlActionUndo onClick={() => setChangeMenu(!changeMenu)} />
+                    </Link>
+                    :
+                    < Link className="user_menu-link" >
+                        <SlActionRedo onClick={() => setChangeMenu(!changeMenu)} />
+                    </Link>
+            }
         </div >
     );
 };

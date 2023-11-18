@@ -39,29 +39,29 @@ export const DataProvider = ({ children }) => {
         }
     };
 
-    // useEffect(() => {
-    //     setPhrases([]);
-    //     setTest([]);
-    // }, [languageSwitch]);
+    useEffect(() => {
+        setPhrases([]);
+        setTest([]);
+    }, [languageSwitch]);
 
-    // useEffect(() => {
-    //     const fetchCollectionsName = async () => {
-    //         try {
-    //             const response = await api.get('/collections');
-    //             setCollectionsName(response.data);
-    //         }
-    //         catch (err) {
-    //             console.log(`Error: ${err.message}`);
-    //             setErrorMessage(`Error: ${err.message}`);
-    //         }
-    //     };
-    //     fetchCollectionsName();
+    useEffect(() => {
+        const fetchCollectionsName = async () => {
+            try {
+                const response = await api.get('/collections');
+                setCollectionsName(response.data);
+            }
+            catch (err) {
+                console.log(`Error: ${err.message}`);
+                setErrorMessage(`Error: ${err.message}`);
+            }
+        };
+        fetchCollectionsName();
 
-    // }, []);
+    }, []);
 
-    // useEffect(() => {
-    //     localStorage.setItem("menu", JSON.stringify(changeMenu));
-    // }, [changeMenu]);
+    useEffect(() => {
+        localStorage.setItem("menu", JSON.stringify(changeMenu));
+    }, [changeMenu]);
 
 
     return (

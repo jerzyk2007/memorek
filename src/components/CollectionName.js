@@ -13,7 +13,7 @@ const CollectionName = ({ name }) => {
         try {
             await fetchPhrases(name);
             setLearnOrTest('learn');
-            navigate('/memorek/learn');
+            navigate('/learn');
         } catch (err) {
             console.log(err);
         }
@@ -24,7 +24,7 @@ const CollectionName = ({ name }) => {
             setIseLoading(true);
             await fetchTestPhrases(name);
             setLearnOrTest('test');
-            navigate('/memorek/test');
+            navigate('/test');
         }
         catch (err) {
             console.log(err);

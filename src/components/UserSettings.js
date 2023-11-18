@@ -18,16 +18,16 @@ const UserSettings = () => {
     return (
         <section className='user_settings'>
             {auth?.roles?.includes(200) &&
-                <Link to="/memorek/user-settings/register" className="user_settings-link" >
+                <Link to="/user-settings/register" className="user_settings-link" >
                     <button className="user_settings-button"  >Register new user</button>
                 </Link>}
-            <Link to="/memorek/user-settings/username" className="user_settings-link" >
+            <Link to="/user-settings/username" className="user_settings-link" >
                 <button className="user_settings-button" >Change user name</button>
             </Link>
-            <Link to="/memorek/user-settings/changepass" className="user_settings-link" >
+            <Link to="/user-settings/changepass" className="user_settings-link" >
                 <button className="user_settings-button" >Change password</button>
             </Link>
-            <Link to="/memorek/user-settings/logout" className="user_settings-link" >
+            <Link to="/user-settings/logout" className="user_settings-link" >
                 <button className="user_settings-button" onClick={handleLogout}>Log out</button>
             </Link>
 

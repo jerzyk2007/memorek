@@ -1,6 +1,6 @@
 import axios from "axios";
-const BASE_URL = 'https://memorekserver-6298af420e12.herokuapp.com';
-// const BASE_URL = 'https://server.memorek-online.pl';
+// const BASE_URL = 'https://memorekserver-6298af420e12.herokuapp.com';
+const BASE_URL = 'https://server.memorek-online.pl';
 // const BASE_URL = 'http://localhost:3500';
 
 export default axios.create({
