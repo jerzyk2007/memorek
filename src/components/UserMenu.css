@@ -1,6 +1,6 @@
 .user_menu {
-    position: sticky;
     position: -webkit-sticky;
+    position: sticky;
     bottom: 0;
     background-color: rgb(92, 201, 87);
     display: flex;

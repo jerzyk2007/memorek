@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useData from "./hooks/useData";
 import axios from './api/axios';
+import { axiosPrivate } from "./api/axios";
 import Instruction from "./Instruction";
 import { FiX } from "react-icons/fi";
 import './Login.css';
@@ -21,7 +22,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/login',
+            const response = await axiosPrivate.post('/login',
                 JSON.stringify({ username, password }),
                 {
                     headers: { 'Content-Type': 'application/json' },
