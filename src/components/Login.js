@@ -7,7 +7,7 @@ import { FiX } from "react-icons/fi";
 import './Login.css';
 
 const Login = () => {
-    const { auth, setAuth, changeMenu, setChangeMenu, persist, setPersist } = useData();
+    const { auth, setAuth, setChangeMenu, persist, setPersist } = useData();
     const navigate = useNavigate();
 
     const userRef = useRef();
