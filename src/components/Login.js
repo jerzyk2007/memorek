@@ -22,6 +22,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // const response = await axios.post('/login',
             const response = await axiosPrivate.post('/login',
                 JSON.stringify({ username, password }),
                 {
