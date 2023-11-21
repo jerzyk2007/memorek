@@ -12,9 +12,8 @@ export const DataProvider = ({ children }) => {
     const [LearnOrTest, setLearnOrTest] = useState('learn');
     const [languageSwitch, setLanguageSwitch] = useState(true);
     const [auth, setAuth] = useState(localStorage.getItem("menu") === null ? {} : localStorage.getItem("persist") === null || localStorage.getItem("persist") === false ? {} : { username: localStorage.getItem("username") });
-    const [changeMenu, setChangeMenu] = useState(localStorage.getItem("menu") === null ? true : JSON.parse(localStorage.getItem("menu")));
-
-
+    const [changeMenu, setChangeMenu] = useState(localStorage.getItem("persist") === "true" && localStorage.getItem("menu") === "false" ?
+        false : true);
     const [persist, setPersist] = useState(JSON.parse(localStorage.getItem("persist")) || false);
 
     const fetchPhrases = async (collections) => {

@@ -6,14 +6,16 @@ import './PersistLogin.css';
 
 const PersistLogin = () => {
     const refresh = useRefreshToken();
-    const { auth, persist } = useData();
+    const { auth, persist, setChangeMenu } = useData();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         let isMounted = true;
         const verifyRefreshToken = async () => {
             try {
-                await refresh();
+                if (localStorage?.getItem("username")) {
+                    await refresh();
+                }
             }
             catch (err) {
                 console.error(err);
