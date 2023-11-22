@@ -63,9 +63,6 @@ const ChangeUserName = () => {
         }
     };
 
-    const handleExit = () => {
-    };
-
     useEffect(() => {
         userRef.current.focus();
     }, []);
