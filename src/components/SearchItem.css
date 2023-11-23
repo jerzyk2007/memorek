@@ -1,0 +1,84 @@
+.search_item__container {
+    margin: 10px auto;
+    padding: 5px;
+    overflow-y: auto;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
+    width: 95%;
+}
+
+.search_item-phrase {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.search_item-question,
+.search_item-answer {
+    background-color: #93adce;
+    border-radius: 5px;
+    padding: 2px 5px;
+    /* min-width: 20%; */
+    margin: 5px;
+    box-shadow: 2px 2px 3px 2px rgb(106, 132, 134);
+}
+
+.search_item-answer {
+    background-color: #43c752;
+}
+
+.search_item-question-item,
+.search_item-answer-item,
+.search_item-question-edit,
+.search_item-answer-edit {
+    flex-grow: 1;
+    margin-left: 5px;
+    font-size: 1.4rem;
+    border: none;
+    user-select: none;
+    padding: 5px 0;
+    margin-right: 15px;
+    font-family: -apple-system;
+}
+
+.search_item-question-edit,
+.search_item-answer-edit {
+    resize: none;
+    overflow-y: auto;
+    color: rgb(35, 13, 161);
+    background-color: #dfdddd;
+    border-radius: 5px;
+    padding: 5px 5px;
+    margin-right: 5px;
+
+    box-shadow: 2px 2px 3px 2px rgb(106, 132, 134);
+}
+
+.search_item-line {
+    border-bottom: 2px dashed black;
+    margin: 10px 0;
+}
+
+.search_item-button__container {
+    width: 60%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.search_item-button {
+    font-size: 1rem;
+    padding: 5px 10px;
+    min-width: 25%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px 2px rgb(106, 132, 134);
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.search_item-button:last-child {
+    background-color: rgb(251, 88, 88);
+}

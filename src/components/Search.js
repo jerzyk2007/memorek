@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useData from "./hooks/useData";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
+import SearchItem from "./SearchItem";
 import { LuLoader } from "react-icons/lu";
 import './Search.css';
 
@@ -12,24 +13,14 @@ const Search = () => {
     const [findPhrases, setFindPhrases] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const searchPhrases = findPhrases.map((phrase, index) =>
-    (
-        <section className="search__container" key={index}>
-            <p className="search-phrase">
-                <span className="search-question">Question:</span>
-                <span className="search-question-item">{phrase.question}</span>
-            </p>
-            <div className="search-line"></div>
-            <p className="search-phrase">
-                <span className="search-answer">Answer:</span>
-                <span className="search-answer-item">{phrase.answer}</span>
-            </p>
-            <section className="search-button__container">
-                <button className="search-button">Edit</button>
-                <button className="search-button">Delete</button>
-            </section>
 
-        </section>)
+
+
+    const searchPhrases = findPhrases.map((phrase, index) =>
+        <SearchItem
+            key={index}
+            phrase={phrase}
+        />
     );
 
     const handleSubmit = async (e) => {
