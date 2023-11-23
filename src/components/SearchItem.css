@@ -79,6 +79,19 @@
     cursor: pointer;
 }
 
-.search_item-button:last-child {
+.search_item-button--delete {
     background-color: rgb(251, 88, 88);
+}
+
+.search_item-button--cancel {
+    background-color: rgb(255, 255, 255);
+}
+
+.search_item-button--change {
+    background-color: #43c752;
+}
+
+.search_item-button:active {
+    background-color: #e1ff00;
+
 }

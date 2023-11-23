@@ -12,14 +12,16 @@ const Search = () => {
     const [search, setSearch] = useState('');
     const [findPhrases, setFindPhrases] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-
-
-
+    const [editPhrase, setEditPhrase] = useState(false);
 
     const searchPhrases = findPhrases.map((phrase, index) =>
         <SearchItem
             key={index}
             phrase={phrase}
+            editPhrase={editPhrase}
+            setEditPhrase={setEditPhrase}
+            findPhrases={findPhrases}
+            setFindPhrases={setFindPhrases}
         />
     );
 
