@@ -26,7 +26,6 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhr
             setDeleteActive(true);
         }
         setEditPhrase(true);
-        console.log(phrase);
     };
 
     const handleCancel = (info) => {
