@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useData from "./hooks/useData";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
+import { LuLoader } from "react-icons/lu";
 import './Search.css';
 
 const Search = () => {
-    const { collectionsName, phrases, auth } = useData();
+    const { collectionsName } = useData();
     const axiosPrivate = useAxiosPrivate();
 
-    const [search, setSearch] = useState('test');
-    const [findPhrases, setFindPhrases] = useState(phrases);
+    const [search, setSearch] = useState('');
+    const [findPhrases, setFindPhrases] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const searchPhrases = findPhrases.map((phrase, index) =>
     (
         <section className="search__container" key={index}>
             <p className="search-phrase">
-                <span className="search-question">Question:</span> <span className="search-question-item">{phrase.question}</span>
+                <span className="search-question">Question:</span>
+                <span className="search-question-item">{phrase.question}</span>
             </p>
             <div className="search-line"></div>
             <p className="search-phrase">
@@ -32,22 +35,31 @@ const Search = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axiosPrivate.get('/search/test',
+            if (search) {
+                setIsLoading(true);
+                const response = await axiosPrivate.get('/search/phrases',
+                    {
+                        params: { collections: collectionsName, search },
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true,
+                    }
+                );
+                setFindPhrases(response.data);
+            }
+            setIsLoading(false);
 
-                JSON.stringify({
-                    username: auth.username,
-                }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true,
-                }
-            );
-            console.log(response.data);
         }
         catch (err) {
             console.log(err);
         }
     };
+
+    useEffect(() => {
+        if (!search) {
+            setFindPhrases([]);
+        }
+    }, [search]);
+
     return (
         <section className="search">
             <form className="search-form" onSubmit={handleSubmit}>
@@ -58,8 +70,13 @@ const Search = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
+                <button className="search-button--search">Search</button>
             </form>
-            {!findPhrases?.length ? <span className="search-warning">No phrases to display</span> : <>{searchPhrases}</>
+            {!isLoading ? (!findPhrases?.length ? <span className="search-warning">No phrases to display</span> : <>{searchPhrases}</>) :
+                <div className="search__loading-title">
+                    <p className='search__loading-title-text'>Please wait...</p>
+                    <LuLoader className='search__loading-title-icon' />
+                </div>
             }
         </section>
     );

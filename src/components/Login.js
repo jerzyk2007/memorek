@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useData from "./hooks/useData";
-import axios from './api/axios';
 import { axiosPrivate } from "./api/axios";
 import Instruction from "./Instruction";
 import { FiX } from "react-icons/fi";
