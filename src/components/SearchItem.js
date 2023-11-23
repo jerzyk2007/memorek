@@ -4,7 +4,7 @@ import { LuLoader } from "react-icons/lu";
 import './SearchItem.css';
 import { axiosPrivate } from "./api/axios";
 
-const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhrases }) => {
+const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhrases, updatePhrase }) => {
     const [editActive, setEditActive] = useState(false);
     const [deleteActive, setDeleteActive] = useState(false);
     const [changePhrase, setChangePhrase] = useState(phrase);
@@ -26,6 +26,7 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhr
             setDeleteActive(true);
         }
         setEditPhrase(true);
+        console.log(phrase);
     };
 
     const handleCancel = (info) => {
@@ -55,6 +56,7 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhr
             setEditActive(false);
             setEditPhrase(false);
             setIsLoading(false);
+            updatePhrase(changePhrase);
         }
         catch (err) {
             console.log(err);
@@ -86,7 +88,7 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhr
             setConfirmChange(false);
         }
 
-    }, [changePhrase]);
+    }, [changePhrase, updatePhrase]);
 
     return (
         <section className="search_item__container" >

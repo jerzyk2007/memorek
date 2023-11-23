@@ -14,6 +14,15 @@ const Search = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [editPhrase, setEditPhrase] = useState(false);
 
+    const updatePhrase = (updatedPhrase) => {
+        const updatedIndex = findPhrases.findIndex((phrase) => phrase._id === updatedPhrase._id);
+        setFindPhrases((prevPhrases) => {
+            const newPhrases = [...prevPhrases];
+            newPhrases[updatedIndex] = updatedPhrase;
+            return newPhrases;
+        });
+    };
+
     const searchPhrases = findPhrases.map((phrase, index) =>
         <SearchItem
             key={index}
@@ -22,6 +31,7 @@ const Search = () => {
             setEditPhrase={setEditPhrase}
             findPhrases={findPhrases}
             setFindPhrases={setFindPhrases}
+            updatePhrase={updatePhrase}
         />
     );
 
