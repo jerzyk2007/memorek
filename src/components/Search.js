@@ -47,10 +47,11 @@ const Search = () => {
                         withCredentials: true,
                     }
                 );
+                console.log(response.data);
                 setFindPhrases(response.data);
             }
             setIsLoading(false);
-
+            setEditPhrase(false);
         }
         catch (err) {
             console.log(err);

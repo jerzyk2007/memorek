@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
+// import { useParams } from 'react-router-dom';
 import { LuLoader } from "react-icons/lu";
 import './SearchItem.css';
-import { axiosPrivate } from "./api/axios";
 
 const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhrases, updatePhrase }) => {
     const [editActive, setEditActive] = useState(false);
@@ -18,6 +18,8 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhr
     const [isLoading, setIsLoading] = useState(false);
     const spanQuestionRef = useRef(null);
     const spanAnswerRef = useRef(null);
+    const axiosPrivate = useAxiosPrivate();
+    // const { id } = useParams();
 
     const handleButton = (info) => {
         if (!editPhrase && info === 'edit') {
@@ -37,14 +39,15 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhr
         setEditPhrase(false);
     };
 
-    const handleChange = async () => {
+    const handleChange = async (id) => {
         try {
             setIsLoading(true);
-            const response = await axiosPrivate.post('/search/change',
+            const response = await axiosPrivate.patch(`/search/change`,
                 JSON.stringify({
                     id: changePhrase._id,
                     question: changePhrase.question,
-                    answer: changePhrase.answer
+                    answer: changePhrase.answer,
+                    collection: changePhrase.collection
 
                 }),
                 {
@@ -147,7 +150,7 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhr
                 >Cancel</button>
                 <button
                     className="search_item-button search_item-button--change"
-                    onClick={handleChange}
+                    onClick={() => handleChange(changePhrase._id)}
                     disabled={!confirmChange}
                     style={!confirmChange ? { backgroundColor: "white" } : {}}
                 >Change</button>
