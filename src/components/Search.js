@@ -23,6 +23,11 @@ const Search = () => {
         });
     };
 
+    const deletePhrase = (id) => {
+        const updatedIndex = findPhrases.filter(phrase => phrase._id !== id);
+        setFindPhrases(updatedIndex);
+    };
+
     const searchPhrases = findPhrases.map((phrase, index) =>
         <SearchItem
             key={index}
@@ -32,6 +37,7 @@ const Search = () => {
             findPhrases={findPhrases}
             setFindPhrases={setFindPhrases}
             updatePhrase={updatePhrase}
+            deletePhrase={deletePhrase}
         />
     );
 
@@ -47,7 +53,6 @@ const Search = () => {
                         withCredentials: true,
                     }
                 );
-                console.log(response.data);
                 setFindPhrases(response.data);
             }
             setIsLoading(false);
