@@ -6,7 +6,7 @@ import './PersistLogin.css';
 
 const PersistLogin = () => {
     const refresh = useRefreshToken();
-    const { auth, persist, setChangeMenu } = useData();
+    const { auth, persist } = useData();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

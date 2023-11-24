@@ -1,10 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
-// import { useParams } from 'react-router-dom';
-import { LuLoader } from "react-icons/lu";
 import './SearchItem.css';
 
-const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhrases, updatePhrase, deletePhrase }) => {
+const SearchItem = ({ phrase, editPhrase, setEditPhrase, updatePhrase, deletePhrase }) => {
     const [editActive, setEditActive] = useState(false);
     const [deleteActive, setDeleteActive] = useState(false);
     const [changePhrase, setChangePhrase] = useState(phrase);
@@ -39,7 +37,7 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhr
 
     const handleChange = async () => {
         try {
-            const response = await axiosPrivate.patch(`/search/change`,
+            await axiosPrivate.patch(`/search/change`,
                 JSON.stringify({
                     id: changePhrase._id,
                     question: changePhrase.question,
@@ -63,7 +61,7 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhr
 
     const handleDelete = async () => {
         try {
-            const response = await axiosPrivate.delete(`/search/${phrase._id}`,
+            await axiosPrivate.delete(`/search/${phrase._id}`,
                 {
                     params: { collection: phrase.collection },
                     headers: { 'Content-Type': 'application/json' },
@@ -99,7 +97,7 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, findPhrases, setFindPhr
             setConfirmChange(false);
         }
 
-    }, [changePhrase, updatePhrase]);
+    }, [changePhrase, updatePhrase, phrase.answer, phrase.question]);
 
     return (
         <section className="search_item__container" >
