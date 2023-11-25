@@ -88,7 +88,7 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, updatePhrase, deletePhr
             const rowsAnswer = Math.floor(spanAnswerHeight / fontSizeAnswer);
             setRowsText({ rowsQuestion, rowsAnswer });
         }
-    }, [changePhrase]);
+    }, [changePhrase, updatePhrase]);
 
     useEffect(() => {
         if (phrase.question !== changePhrase.question || phrase.answer !== changePhrase.answer) {
