@@ -1,0 +1,27 @@
+.add_data_single {
+    flex-grow: 1;
+}
+
+.add_data_single__collections-info {
+    text-align: center;
+    padding: 5px 0;
+    margin: 5px 0;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
+}
+
+.add_data_single__collections-buttons {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.add_data_single__collections-button {
+    margin: 0 auto;
+    border: none;
+    padding: 10px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
+    background-color: rgb(140, 190, 228);
+}

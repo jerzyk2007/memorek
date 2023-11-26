@@ -55,7 +55,9 @@ const Login = () => {
     }, [username, password]);
 
     useEffect(() => {
-        userRef.current.focus();
+        if (!localStorage?.getItem("username")) {
+            userRef.current.focus();
+        }
     }, []);
 
     useEffect(() => {
