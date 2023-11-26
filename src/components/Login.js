@@ -21,7 +21,6 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // const response = await axios.post('/login',
             const response = await axiosPrivate.post('/login',
                 JSON.stringify({ username, password }),
                 {
@@ -29,13 +28,12 @@ const Login = () => {
                     withCredentials: true
                 }
             );
-            // console.log(response.data);
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             persist && localStorage.setItem("username", username);
             setAuth({ username, password, roles, accessToken });
             setChangeMenu(prev => !prev);
-            navigate('/memorek');
+            navigate('/');
         }
         catch (err) {
             if (!err?.response) {

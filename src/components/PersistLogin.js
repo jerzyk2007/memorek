@@ -1,11 +1,14 @@
 import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useRefreshToken from "./hooks/useRefreshToken";
+
 import useData from "./hooks/useData";
 import './PersistLogin.css';
 
 const PersistLogin = () => {
     const refresh = useRefreshToken();
+
+
     const { auth, persist } = useData();
     const [isLoading, setIsLoading] = useState(true);
 

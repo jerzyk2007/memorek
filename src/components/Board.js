@@ -25,7 +25,6 @@ const Board = () => {
                 <Route path='collections' element={<Collections />} />
                 <Route path='test' element={<Test />} />
                 <Route path='login' element={<Login />} />
-                {/* <Route path='search' element={<Search />} /> */}
 
                 {/* protected routes */}
                 <Route element={<PersistLogin />}>
