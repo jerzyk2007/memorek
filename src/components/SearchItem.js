@@ -101,7 +101,7 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, updatePhrase, deletePhr
 
     return (
         <section className="search_item__container" >
-            <p className="search_item-phrase">
+            <div className="search_item-phrase">
                 <span className="search_item-question">Question:</span>
                 {!editActive && <span className="search_item-question-item"
                     ref={spanQuestionRef}
@@ -117,9 +117,9 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, updatePhrase, deletePhr
                         rows={rowsTextArea.rowsQuestion}
                     />
                 }
-            </p>
+            </div>
             <div className="search_item-line"></div>
-            <p className="search_item-phrase">
+            <div className="search_item-phrase">
                 <span className="search_item-answer">Answer:</span>
                 {!editActive &&
                     <span className="search_item-answer-item"
@@ -138,7 +138,7 @@ const SearchItem = ({ phrase, editPhrase, setEditPhrase, updatePhrase, deletePhr
                         rows={rowsTextArea.rowsAnswer}
                     />
                 }
-            </p>
+            </div>
             {!editActive && !deleteActive &&
                 <section className="search_item-button__container">
                     <button
