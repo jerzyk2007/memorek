@@ -41,6 +41,10 @@
     background-color: rgb(140, 190, 228);
 }
 
+.add_data-button:active {
+    background-color: #e1ff00;
+}
+
 .add_data__buttons {
     display: flex;
     justify-content: space-evenly;

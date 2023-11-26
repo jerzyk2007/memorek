@@ -6,9 +6,13 @@ const AddDataSingle = () => {
     const [collectionName, setCollectionName] = useState('');
     const [errorName, setErrorName] = useState('');
 
-    const handleCollection = (info) => {
+    const handleCollection = async (info) => {
         console.log(info);
         setSelectCollection(info);
+
+        if (info === "complete") {
+
+        }
     };
     return (
         <section className="add_data_single">
@@ -20,7 +24,7 @@ const AddDataSingle = () => {
                     <button className='add_data_single__collections-button' onClick={() => { handleCollection('complete'); }}>Complete</button>
                     <button className='add_data_single__collections-button' onClick={() => { handleCollection('new'); }} >New collection</button>
                 </section>
-                <section className='add_data_single__collections-select'>
+                {selectCollection === "new" && < section className='add_data_single__collections-select'>
                     <label className='add_data_single__collections-select-warning'>{errorName}</label>
                     <input
                         className='add_data_single__collections-select-text'
@@ -30,9 +34,9 @@ const AddDataSingle = () => {
                         onChange={(e) => { setCollectionName(e.target.value); }}
                     />
                     <button className='add_data_single__collections-check'>Check</button>
-                </section>
+                </section>}
             </section>
-        </section>
+        </section >
     );
 };
 

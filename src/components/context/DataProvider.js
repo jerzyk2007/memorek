@@ -49,7 +49,8 @@ export const DataProvider = ({ children }) => {
         const fetchCollectionsName = async () => {
             try {
                 const response = await api.get('/collections');
-                setCollectionsName(response.data);
+                const filterCollections = response.data.map(collection => collection.name);
+                setCollectionsName(filterCollections);
             }
             catch (err) {
                 console.log(`Error: ${err.message}`);
