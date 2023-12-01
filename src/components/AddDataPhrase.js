@@ -17,7 +17,6 @@ const AddDataPhrase = ({ nameCollection, setNameCollection }) => {
     const [isAdding, setIsAdding] = useState(false);
 
     const handleCancel = () => {
-        console.log('cancel');
         setNameCollection('');
     };
 
@@ -36,7 +35,6 @@ const AddDataPhrase = ({ nameCollection, setNameCollection }) => {
             );
             setNameCollection('');
             await fetchCollectionsData();
-            console.log(response.data);
         }
         catch (err) {
             if (err?.response?.status === 507) {

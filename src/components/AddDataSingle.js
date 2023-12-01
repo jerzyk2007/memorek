@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import useData from './hooks/useData';
-import api from './api/axios';
 import AddDataPhrase from './AddDataPhrase';
 import './AddDataSingle.css';
 

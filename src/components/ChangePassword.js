@@ -53,7 +53,6 @@ const ChangePassword = () => {
             logout();
         }
         catch (err) {
-            console.log('erorek');
             if (!err?.response) {
                 setErrMsg('No server response.');
             } else if (err.response?.status === 400) {
