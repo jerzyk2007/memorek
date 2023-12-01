@@ -81,7 +81,7 @@ const Search = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <button className="search-button--search">Search</button>
+                <button className="search-button--search" type="submit">Search</button>
             </form>
             {!isLoading ? (!findPhrases?.length ? <span className="search-warning">No phrases to display</span> : <>{searchPhrases}</>) :
                 <div className="search__loading-title">

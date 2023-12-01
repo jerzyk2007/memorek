@@ -14,15 +14,15 @@ const AddDataSingle = () => {
     const [newCollectionName, setNewCollectionName] = useState('');
 
 
-    const handleCollection = async (info) => {
-        console.log(info);
+    const handleCollection = (info) => {
         setSelectAddType(info);
         setNameCollection('');
-        // setNewCollectionName('');
+        setNewCollectionName('');
     };
 
-    const handleSelect = (name) => {
-        setNameCollection(name);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setNameCollection(newCollectionName);
     };
 
     const collectionItem = collectionsData.map((item, index) =>
@@ -31,7 +31,7 @@ const AddDataSingle = () => {
             <span className="add_data_single__collection-item-name">{item.name}</span>
             <span className="add_data_single__collection-item-count">- {item.count}/50</span>
             <button className="add_data_single__collection-item-select" disabled={item.count >= 50 ? true : false}
-                onClick={() => handleSelect(item.name)}
+                onClick={() => setNameCollection(item.name)}
             >Select</button>
         </section>
     )
@@ -70,16 +70,20 @@ const AddDataSingle = () => {
                 </section>
                 {selectAddType === "new" && !nameCollection && < section className='add_data_single__collections-select'>
                     <label className='add_data_single__collections-select-warning'>{errorName}</label>
-                    <input
-                        className='add_data_single__collections-select-text'
-                        type='text'
-                        placeholder='Enter name - min 4 char.'
-                        value={newCollectionName}
-                        onChange={(e) => { setNewCollectionName(e.target.value); }}
-                    />
-                    <button className='add_data_single__collections-check' onClick={() => { handleSelect(newCollectionName); }}
-                        disabled={!checkCollectionName}
-                    >Select</button>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            className='add_data_single__collections-select-text'
+                            type='text'
+                            placeholder='Enter name - min 4 char.'
+                            value={newCollectionName}
+                            onChange={(e) => { setNewCollectionName(e.target.value); }}
+                        />
+                        <button
+                            className='add_data_single__collections-check'
+                            type='submit'
+                            disabled={!checkCollectionName}
+                        >Select</button>
+                    </form>
                 </section>}
                 {selectAddType === "complete" && !nameCollection && <section className="add_data_single-collections-list">
                     {collectionItem}
