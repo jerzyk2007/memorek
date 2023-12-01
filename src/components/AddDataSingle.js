@@ -28,7 +28,7 @@ const AddDataSingle = () => {
     (
         <section className="add_data_single__collection-item" key={index}>
             <span className="add_data_single__collection-item-name">{item.name}</span>
-            <span className="add_data_single__collection-item-count">- {item.count}/50</span>
+            <span className="add_data_single__collection-item-count">{item.count}/50</span>
             <button className="add_data_single__collection-item-select" disabled={item.count >= 50 ? true : false}
                 onClick={() => setNameCollection(item.name)}
             >Select</button>

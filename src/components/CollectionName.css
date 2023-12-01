@@ -2,7 +2,7 @@
     padding: 10px;
     display: flex;
     align-items: center;
-    border-bottom: 2px solid black;
+    border-bottom: 2px dashed black;
     user-select: none;
 }
 
@@ -11,15 +11,15 @@
     font-size: 1.2rem;
 }
 
-/* .collection_name-counter {
-    font-weight: bold;
-} */
+.collection_name-counter {
+    font-size: 1.2rem;
+}
 
 .collection_name-button {
     padding: 10px;
     border-radius: 10px;
     border: 0px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin: 0 10px;
     background: rgb(251, 221, 54);
     box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
@@ -68,13 +68,22 @@
 
 @media screen and (max-width: 500px) {
 
+    .collection_name {
+        padding: 10px 5px;
+    }
+
     .collection_name-title {
-        font-size: 1rem;
+        font-size: 1.1rem;
+        padding: 10px 0;
+    }
+
+    .collection_name-counter {
+        font-size: 1.1rem;
     }
 
     .collection_name-button {
         padding: 5px;
-        font-size: .8rem;
+        font-size: 1.1rem;
         margin: 0 5px;
 
     }

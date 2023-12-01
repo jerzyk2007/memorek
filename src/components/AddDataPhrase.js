@@ -26,7 +26,7 @@ const AddDataPhrase = ({ nameCollection, setNameCollection }) => {
         }
         try {
             setIsAdding(true);
-            const response = await axiosPrivate.post('/add-data/single',
+            await axiosPrivate.post('/add-data/single',
                 JSON.stringify({ nameCollection, newPhrase }),
                 {
                     headers: { 'Content-Type': 'application/json' },

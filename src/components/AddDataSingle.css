@@ -69,12 +69,13 @@
     margin: 10px auto;
     padding: 10px 0;
     border-bottom: 2px dashed black;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     display: flex;
 }
 
 .add_data_single__collection-item-name {
     flex-grow: 1;
+    font-size: 1.1rem;
 }
 
 .add_data_single__collection-item-count {
