@@ -40,11 +40,10 @@
 
 .add_data_single__collections-select-warning {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: red;
-    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    padding: 10px;
 }
 
 .add_data_single__collections-select-text,

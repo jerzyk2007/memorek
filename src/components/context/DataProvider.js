@@ -8,7 +8,7 @@ export const DataProvider = ({ children }) => {
     const [phrases, setPhrases] = useState([]);
     const [test, setTest] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
-    const [collectionsName, setCollectionsName] = useState([]);
+    const [collectionsData, setCollectionsData] = useState([]);
     const [LearnOrTest, setLearnOrTest] = useState('learn');
     const [languageSwitch, setLanguageSwitch] = useState(true);
     const [auth, setAuth] = useState(localStorage.getItem("menu") === null ? {} : localStorage.getItem("persist") === null || localStorage.getItem("persist") === false ? {} : { username: localStorage.getItem("username") });
@@ -16,10 +16,10 @@ export const DataProvider = ({ children }) => {
         false : true);
     const [persist, setPersist] = useState(JSON.parse(localStorage.getItem("persist")) || false);
 
-    const fetchPhrases = async (collections) => {
+    const fetchPhrases = async (collection) => {
         try {
             const URL = languageSwitch ? "/phrases/learn/normal/" : "/phrases/learn/reverse/";
-            const response = await api.get(`${URL}${collections}`);
+            const response = await api.get(`${URL}${collection}`);
             setPhrases(response.data);
         }
         catch (err) {
@@ -28,10 +28,10 @@ export const DataProvider = ({ children }) => {
         }
     };
 
-    const fetchTestPhrases = async (collections) => {
+    const fetchTestPhrases = async (collection) => {
         try {
             const URL = languageSwitch ? "/phrases/test/normal/" : "/phrases/test/reverse/";
-            const response = await api.get(`${URL}${collections}`);
+            const response = await api.get(`${URL}${collection}`);
             setTest(response.data);
         }
         catch (err) {
@@ -45,20 +45,19 @@ export const DataProvider = ({ children }) => {
         setTest([]);
     }, [languageSwitch]);
 
-    useEffect(() => {
-        const fetchCollectionsName = async () => {
-            try {
-                const response = await api.get('/collections');
-                const filterCollections = response.data.map(collection => collection.name);
-                setCollectionsName(filterCollections);
-            }
-            catch (err) {
-                console.log(`Error: ${err.message}`);
-                setErrorMessage(`Error: ${err.message}`);
-            }
-        };
-        fetchCollectionsName();
+    const fetchCollectionsData = async () => {
+        try {
+            const response = await api.get('/collections');
+            setCollectionsData(response.data);
+        }
+        catch (err) {
+            console.log(`Error: ${err.message}`);
+            setErrorMessage(`Error: ${err.message}`);
+        }
+    };
 
+    useEffect(() => {
+        fetchCollectionsData();
     }, []);
 
     useEffect(() => {
@@ -67,7 +66,7 @@ export const DataProvider = ({ children }) => {
 
 
     return (
-        <DataContext.Provider value={{ phrases, test, errorMessage, collectionsName, fetchPhrases, fetchTestPhrases, LearnOrTest, setLearnOrTest, languageSwitch, setLanguageSwitch, auth, setAuth, changeMenu, setChangeMenu, persist, setPersist }}>
+        <DataContext.Provider value={{ phrases, test, errorMessage, collectionsData, fetchPhrases, fetchTestPhrases, LearnOrTest, setLearnOrTest, languageSwitch, setLanguageSwitch, auth, setAuth, changeMenu, setChangeMenu, persist, setPersist, fetchCollectionsData }}>
             {children}
         </DataContext.Provider>
     );

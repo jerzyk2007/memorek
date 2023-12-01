@@ -11,6 +11,10 @@
     font-size: 1.2rem;
 }
 
+/* .collection_name-counter {
+    font-weight: bold;
+} */
+
 .collection_name-button {
     padding: 10px;
     border-radius: 10px;
@@ -62,7 +66,7 @@
     }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 500px) {
 
     .collection_name-title {
         font-size: 1rem;

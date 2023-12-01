@@ -6,7 +6,7 @@ import { LuLoader } from "react-icons/lu";
 import './Search.css';
 
 const Search = () => {
-    const { collectionsName } = useData();
+    const { collectionsData, fetchCollectionsData } = useData();
     const axiosPrivate = useAxiosPrivate();
 
     const [search, setSearch] = useState('');
@@ -26,6 +26,7 @@ const Search = () => {
     const deletePhrase = (id) => {
         const updatedIndex = findPhrases.filter(phrase => phrase._id !== id);
         setFindPhrases(updatedIndex);
+        fetchCollectionsData();
     };
 
     const searchPhrases = findPhrases.map((phrase, index) =>
@@ -43,6 +44,7 @@ const Search = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const collectionsName = collectionsData.map(obj => obj.name);
         try {
             if (search) {
                 setIsLoading(true);

@@ -81,3 +81,9 @@
 .add_data_phrase__buttons--add:active {
     background-color: #e1ff00;
 }
+
+.add_data_phrase-error {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}

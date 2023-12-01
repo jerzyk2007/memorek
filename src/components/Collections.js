@@ -3,9 +3,9 @@ import './Collections.css';
 import CollectionName from './CollectionName';
 
 const Collections = () => {
-    const { collectionsName } = useData();
-    const collectionElements = collectionsName.map((element, index) => (
-        <CollectionName key={index} name={element} />
+    const { collectionsData } = useData();
+    const collectionElements = collectionsData.map((element, index) => (
+        <CollectionName key={index} name={element.name} count={element.count} />
     ));
 
     return (

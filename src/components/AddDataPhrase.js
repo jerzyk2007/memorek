@@ -1,9 +1,11 @@
 import { useState } from "react";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
+import useData from './hooks/useData';
 import './AddDataPhrase.css';
 
-const AddDataPhrase = ({ collectionName, setCollectionName }) => {
+const AddDataPhrase = ({ nameCollection, setNameCollection }) => {
     const axiosPrivate = useAxiosPrivate();
+    const { fetchCollectionsData } = useData();
 
     const [newPhrase, setNewPhrase] = useState(
         {
@@ -11,31 +13,47 @@ const AddDataPhrase = ({ collectionName, setCollectionName }) => {
             answer: ''
         }
     );
+    const [errorMessage, setErrorMessage] = useState('');
+    const [isAdding, setIsAdding] = useState(false);
 
     const handleCancel = () => {
         console.log('cancel');
-        setCollectionName('');
+        setNameCollection('');
     };
 
     const handleAdd = async () => {
+        if (isAdding) {
+            return;
+        }
         try {
-
+            setIsAdding(true);
             const response = await axiosPrivate.post('/add-data/single',
-                JSON.stringify({ collectionName, newPhrase }),
+                JSON.stringify({ nameCollection, newPhrase }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true,
                 }
             );
+            setNameCollection('');
+            await fetchCollectionsData();
             console.log(response.data);
         }
         catch (err) {
-            console.error(err);
-        }
+            if (err?.response?.status === 507) {
+                setErrorMessage(err.response.data.message);
+            } else {
+                console.error(err);
+            }
 
+        }
+        finally {
+            setIsAdding(false);
+        }
     };
+
     return (
         <section className="add_data_phrase">
+            {errorMessage && <label className="add_data_phrase-error">{errorMessage}</label>}
             <section className="add_data_phrase__question">
                 <p className="add_data_phrase-title--question">Question:</p>
                 <textarea className='add_data_phrase-add--question'
@@ -69,7 +87,7 @@ const AddDataPhrase = ({ collectionName, setCollectionName }) => {
             </section>
             <section className="add_data_phrase__buttons">
                 <button className='add_data_phrase__buttons--cancel' onClick={handleCancel}>Cancel</button>
-                <button className='add_data_phrase__buttons--add' disabled={!newPhrase.question || !newPhrase.answer ? true : false} onClick={handleAdd}>Add</button>
+                <button className='add_data_phrase__buttons--add' disabled={errorMessage || !newPhrase.question || !newPhrase.answer ? true : false} onClick={handleAdd}>Add</button>
             </section>
         </section>
     );
