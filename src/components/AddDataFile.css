@@ -32,3 +32,15 @@
     font-weight: bold;
     background-color: rgb(92, 201, 87);
 }
+
+.add_data_file-info {
+    text-align: center;
+    padding: 5px 0;
+}
+
+.add_data_file-error {
+    text-align: center;
+    background-color: red;
+    color: #fff;
+    padding: 5px 0;
+}

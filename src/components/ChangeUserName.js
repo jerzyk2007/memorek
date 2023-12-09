@@ -33,7 +33,7 @@ const ChangeUserName = () => {
                 setErrMsg("Invalid entry");
                 return;
             }
-            const response = await axiosPrivate.patch('/user/change-name',
+            await axiosPrivate.patch('/user/change-name',
 
                 JSON.stringify({
                     username: auth.username,

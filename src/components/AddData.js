@@ -3,12 +3,12 @@ import './AddData.css';
 
 const AddData = () => {
 
-    const information = `Możesz dodać pojedyńcza frazę lub słowo, możesz dodać do istniejącej kolekcji (max 50 elementów) lub założyc nową kolekcję. Słowo, fraza lub odpowiedź nie może mieć więcej niż 200 znaków. <br />
-    Możesz dodać dane z pliku excel. <br />
-    Dodane będą dane tylko z pierwszego arkusza. <br />
-    Jeśli wierszy w excelu będzie wiecej niż 50, zostaniesz zapytany, czy dodane ma być tylko pierwsze 50 wierszy czy mam być dodana automatycznie kolejna kolekcja (o tej samej nazwie, ale z nr 2 lub większym). <br />
-    Możesz również dodać dane z pliku do niepełnych kolekcji, program sprawdzi czy nie będzie duplikatów.
-    Schemat: komórka A1 - question, B1 - answer, A2 - 'your-question', B2 - 'your-answer' itd <br /> <strong>Sugerowana kolejność to question: język, którego się uczysz, answer: język, który znasz.<br /> Możesz wybrac własną kolejność, ale pamiętaj, zeby cała kolekcja była napisana takim schematem.</strong>`;
+    // const information = `Możesz dodać pojedyńcza frazę lub słowo, możesz dodać do istniejącej kolekcji (max 50 elementów) lub założyc nową kolekcję. Słowo, fraza lub odpowiedź nie może mieć więcej niż 200 znaków. <br />
+    // Możesz dodać dane z pliku excel. <br />
+    // Dodane będą dane tylko z pierwszego arkusza. <br />
+    // Jeśli wierszy w excelu będzie wiecej niż 50, zostaniesz zapytany, czy dodane ma być tylko pierwsze 50 wierszy czy mam być dodana automatycznie kolejna kolekcja (o tej samej nazwie, ale z nr 2 lub większym). <br />
+    // Możesz również dodać dane z pliku do niepełnych kolekcji, program sprawdzi czy nie będzie duplikatów.
+    // Schemat: komórka A1 - question, B1 - answer, A2 - 'your-question', B2 - 'your-answer' itd <br /> <strong>Sugerowana kolejność to question: język, którego się uczysz, answer: język, który znasz.<br /> Możesz wybrac własną kolejność, ale pamiętaj, zeby cała kolekcja była napisana takim schematem.</strong>`;
 
     return (
         <section className="add_data">

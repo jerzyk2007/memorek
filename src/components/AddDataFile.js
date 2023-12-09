@@ -1,18 +1,19 @@
 import { useState } from 'react';
-import { read, utils, writeFileXLSX } from "xlsx";
+import { read, utils } from "xlsx";
 import './AddDataFile.css';
 
 const AddDataFile = () => {
     const [phrase, setPhrase] = useState([]);
     const [phraseCount, setPhraseCount] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     const handleReadExcelFile = async (e) => {
+        setErrorMessage('');
         const file = e.target.files[0];
 
-        // Sprawdzenie rozszerzenia pliku
         if (!file.name.endsWith('.xlsx')) {
-            console.error('Akceptowane są tylko pliki Excel w formacie .xlsx');
+            setErrorMessage('The accepted files are only Excel files in the .xlsx format.');
             return;
         }
         const reader = new FileReader();
@@ -20,7 +21,7 @@ const AddDataFile = () => {
             const arrayBuffer = event.target.result;
             const data = new Uint8Array(arrayBuffer);
             if (!isExcelFile(data)) {
-                console.error('Nieprawidłowa zawartość pliku Excel.');
+                setErrorMessage('Invalid content in the Excel file.');
                 return;
             }
 
@@ -55,11 +56,13 @@ const AddDataFile = () => {
 
     return (
         <section className="add_data_file">
-            <h3 className="add_data_file-title">Complete the collection or create a new one.</h3>
             <section className="add_data_file-file">
                 <input type="file" name="uploadfile" id="xlsx" style={{ display: "none" }} onChange={handleReadExcelFile} />
-                <label htmlFor="xlsx" className="add_data_file-click-me">Click me to upload xlsx or xls</label>
-                <p>Uploading phrases: {phraseCount}</p>
+                <label htmlFor="xlsx" className="add_data_file-click-me">Click me to upload xlsx file</label>
+                {errorMessage.length === 0 ?
+                    <p className="add_data_file-info">Uploading phrases: {phraseCount}</p>
+                    : <p className="add_data_file-error">{errorMessage}</p>
+                }
             </section>
             <section className="add_data_file-upload">
 

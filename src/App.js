@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { DataProvider } from './components/context/DataProvider';
 import Board from './components/Board';
 import UserMenu from './components/UserMenu';
