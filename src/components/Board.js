@@ -13,6 +13,7 @@ import ChangeUserName from './ChangeUserName';
 import ChangePassword from './ChangePassword';
 import Register from './Register';
 import AddDataSingle from './AddDataSingle';
+import AddDataFile from './AddDataFile';
 import './Board.css';
 
 const Board = () => {
@@ -39,6 +40,9 @@ const Board = () => {
                     </Route>
                     <Route element={<RequireAuth allowedRoles={[100]} />}>
                         <Route path='add-data/single' element={<AddDataSingle />} />
+                    </Route>
+                    <Route element={<RequireAuth allowedRoles={[100]} />}>
+                        <Route path='add-data/file' element={<AddDataFile />} />
                     </Route>
                     <Route element={<RequireAuth allowedRoles={[100]} />}>
                         <Route path='user-settings/username' element={<ChangeUserName />} />
