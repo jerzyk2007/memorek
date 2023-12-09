@@ -99,3 +99,10 @@
 .add_data_file__options-buttons--create:active {
     background-color: #e1ff00;
 }
+
+@media screen and (max-width: 500px) {
+    .add_data_file-click-me {
+        font-size: 1.1rem;
+        padding: 5px;
+    }
+}

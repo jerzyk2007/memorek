@@ -93,3 +93,10 @@
 .add_data__collection-item-select:active {
     background-color: #e1ff00;
 }
+
+
+@media screen and (max-width: 500px) {
+    .add_data__collections-info {
+        font-size: 1.1rem;
+    }
+}
