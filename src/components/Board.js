@@ -8,11 +8,11 @@ import PersistLogin from './PersistLogin';
 import RequireAuth from './RequireAuth';
 import Search from './Search';
 import UserSettings from './UserSettings';
-import AddData from './AddData';
+import AddDataMenu from './AddDataMenu';
 import ChangeUserName from './ChangeUserName';
 import ChangePassword from './ChangePassword';
 import Register from './Register';
-import AddDataSingle from './AddDataSingle';
+import AddData from './AddData';
 import AddDataFile from './AddDataFile';
 import './Board.css';
 
@@ -29,20 +29,20 @@ const Board = () => {
 
                 {/* protected routes */}
                 <Route element={<PersistLogin />}>
-                    <Route element={<RequireAuth allowedRoles={[100, 200]} />}>
+                    <Route element={<RequireAuth allowedRoles={[100]} />}>
                         <Route path='search' element={<Search />} />
                     </Route>
-                    <Route element={<RequireAuth allowedRoles={[100, 200]} />}>
+                    <Route element={<RequireAuth allowedRoles={[100]} />}>
                         <Route path='user-settings' element={<UserSettings />} />
                     </Route>
                     <Route element={<RequireAuth allowedRoles={[100]} />}>
-                        <Route path='add-data' element={<AddData />} />
+                        <Route path='add-data' element={<AddDataMenu />} />
                     </Route>
                     <Route element={<RequireAuth allowedRoles={[100]} />}>
-                        <Route path='add-data/single' element={<AddDataSingle />} />
+                        <Route path='add-data/single' element={<AddData addType="single" />} />
                     </Route>
                     <Route element={<RequireAuth allowedRoles={[100]} />}>
-                        <Route path='add-data/file' element={<AddDataFile />} />
+                        <Route path='add-data/file' element={<AddData addType="file" />} />
                     </Route>
                     <Route element={<RequireAuth allowedRoles={[100]} />}>
                         <Route path='user-settings/username' element={<ChangeUserName />} />

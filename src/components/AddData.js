@@ -1,38 +1,115 @@
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import useData from './hooks/useData';
+import AddDataPhrase from './AddDataPhrase';
+import AddDataFile from './AddDataFile';
 import './AddData.css';
 
-const AddData = () => {
+const AddDataSingle = ({ addType }) => {
+    const { collectionsData } = useData();
 
-    // const information = `Możesz dodać pojedyńcza frazę lub słowo, możesz dodać do istniejącej kolekcji (max 50 elementów) lub założyc nową kolekcję. Słowo, fraza lub odpowiedź nie może mieć więcej niż 200 znaków. <br />
-    // Możesz dodać dane z pliku excel. <br />
-    // Dodane będą dane tylko z pierwszego arkusza. <br />
-    // Jeśli wierszy w excelu będzie wiecej niż 50, zostaniesz zapytany, czy dodane ma być tylko pierwsze 50 wierszy czy mam być dodana automatycznie kolejna kolekcja (o tej samej nazwie, ale z nr 2 lub większym). <br />
-    // Możesz również dodać dane z pliku do niepełnych kolekcji, program sprawdzi czy nie będzie duplikatów.
-    // Schemat: komórka A1 - question, B1 - answer, A2 - 'your-question', B2 - 'your-answer' itd <br /> <strong>Sugerowana kolejność to question: język, którego się uczysz, answer: język, który znasz.<br /> Możesz wybrac własną kolejność, ale pamiętaj, zeby cała kolekcja była napisana takim schematem.</strong>`;
+    const [selectAddType, setSelectAddType] = useState('');
+    const [checkCollectionName, setCheckCollectionName] = useState(false);
+    const [errorName, setErrorName] = useState('');
+    const [selectCollection, setSelectCollection] = useState('');
+    const [newCollectionName, setNewCollectionName] = useState('');
+
+
+    const handleCollection = (info) => {
+        setSelectAddType(info);
+        setSelectCollection('');
+        setNewCollectionName('');
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setSelectCollection(newCollectionName);
+    };
+
+    const collectionItem = collectionsData.map((item, index) =>
+    (
+        <section className="add_data__collection-item" key={index}>
+            <span className="add_data__collection-item-name">{item.name}</span>
+            <span className="add_data__collection-item-count">{item.count}/50</span>
+            <button className="add_data__collection-item-select" disabled={item.count >= 50 ? true : false}
+                onClick={() => setSelectCollection(item.name)}
+            >Select</button>
+        </section>
+    )
+    );
+
+    useEffect(() => {
+        const check = collectionsData.map(item => item.name);
+        if (newCollectionName.length >= 4) {
+            if (check.some(item => item.toLowerCase() === newCollectionName.toLowerCase())) {
+                setErrorName("The name is occupied.");
+                setCheckCollectionName(false);
+
+            } else {
+                setCheckCollectionName(true);
+                setErrorName("");
+            }
+        } else {
+            setCheckCollectionName(false);
+        }
+    }, [newCollectionName]);
+
+    useEffect(() => {
+        setNewCollectionName('');
+    }, [selectCollection, selectAddType]);
+
 
     return (
         <section className="add_data">
-            <h1 className="add_data-title">Add data</h1>
-            <section className="add_data__info">
-                <span className="add_data__text">
-                    You can add a single phrase or word; you can add it to an existing collection (max 50 elements) or create a new collection. A word, phrase, or answer cannot exceed 200 characters. <br />
-                    You can add data from an Excel file. <br />
-                    Only data from the first sheet will be added. <br />
-                    If there are more than 50 rows in the Excel file, you will be asked whether only the first 50 rows should be added or if another collection should be added automatically (with the same name but with number 2 or greater). <br />
-                    You can also add data from a file to incomplete collections; the program will check for duplicates.<br />
-                    Format: cell A1 - 'your-question', B1 - 'your-answer', A2 - 'your-question', B2 - 'your-answer', and so on. <br /> <strong>The suggested order is question: the language you are learning, answer: the language you know. <br /> You can choose your own order, but remember that the entire collection should be written in this format.</strong>
-                </span>
-                <section className="add_data__buttons">
-                    <Link to="/add-data/single" className="add_data-button-link" >
-                        <button className="add_data-button">Single</button>
-                    </Link>
-                    <Link to="/add-data/file" className="add_data-button-link" >
-                        <button className="add_data-button">From file</button>
-                    </Link>
+            <section className="add_data__collections">
+
+                <h3 className="add_data__collections-info">
+                    Complete the collection or create a new one.
+                </h3>
+
+                <section className='add_data__collections-buttons'>
+                    <button className='add_data__collections-button' onClick={() => { handleCollection('complete'); }}>Complete</button>
+                    <button className='add_data__collections-button' onClick={() => { handleCollection('new'); }} >New collection</button>
                 </section>
+
+                {selectAddType === "new" && !selectCollection &&
+                    < section className='add_data__collections-select'>
+                        <label className='add_data__collections-select-warning'>{errorName}</label>
+                        <form onSubmit={handleSubmit}>
+                            <input
+                                className='add_data__collections-select-text'
+                                type='text'
+                                placeholder='Enter name - min 4 char.'
+                                value={newCollectionName}
+                                onChange={(e) => { setNewCollectionName(e.target.value); }}
+                            />
+                            <button
+                                className='add_data__collections-check'
+                                type='submit'
+                                disabled={!checkCollectionName}
+                            >Select</button>
+                        </form>
+                    </section>}
+
+                {selectAddType === "complete" && !selectCollection &&
+                    <section className="add_data-collections-list">
+                        {collectionItem}
+                    </section>}
+
+                {selectCollection && addType === "single" &&
+                    <AddDataPhrase
+                        nameCollection={selectCollection}
+                        setNameCollection={setSelectCollection}
+                    />}
+
+                {selectCollection && addType === "file" &&
+                    <AddDataFile
+                        nameCollection={selectCollection}
+                        setNameCollection={setSelectCollection}
+                    />}
+
             </section>
-        </section>
+        </section >
     );
 };
 
-export default AddData;
+export default AddDataSingle;

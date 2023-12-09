@@ -1,55 +1,95 @@
 .add_data {
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
 }
 
-.add_data-title {
+.add_data__collections-info {
+    width: 95%;
     text-align: center;
-    padding: 5px 0px;
-    margin: 10px auto;
-    width: 40%;
+    padding: 5px 0;
+    margin: 5px auto;
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
-    background-color: rgb(92, 201, 87);
-    user-select: none;
 }
 
-.add_data__info {
-    margin: 10px 0;
-}
-
-.add_data__text {
-    display: block;
-    padding: 10px;
-    font-size: 1.2rem;
-    text-align: justify;
-}
-
-.add_data__buttons {
+.add_data__collections-buttons {
+    padding: 10px 0;
     display: flex;
+    justify-content: space-evenly;
 }
 
-.add_data-button {
-    display: block;
+.add_data__collections-button {
     margin: 0 auto;
     border: none;
     padding: 10px;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
     background-color: rgb(140, 190, 228);
 }
 
-.add_data-button:active {
+.add_data__collections-button:active {
     background-color: #e1ff00;
 }
 
-.add_data__buttons {
+.add_data__collections-select {
+    margin: 0px auto;
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.add_data-button-link {
-    text-decoration: none;
+.add_data__collections-select-warning {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    padding: 10px;
+}
+
+.add_data__collections-select-text,
+.add_data__collections-check {
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
+    padding: 10px 5px;
+    margin: 0 10px;
+}
+
+.add_data__collections-check {
+    cursor: pointer;
+}
+
+.add_data__collections-check:active {
+    background-color: #e1ff00;
+}
+
+.add_data__collection-item {
+    width: 95%;
+    margin: 10px auto;
+    padding: 10px 0;
+    border-bottom: 2px dashed black;
+    font-size: 1.1rem;
+    display: flex;
+}
+
+.add_data__collection-item-name {
+    flex-grow: 1;
+    font-size: 1.1rem;
+}
+
+.add_data__collection-item-count {
+    padding: 0 10px;
+}
+
+.add_data__collection-item-select {
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
+    padding: 5px;
+}
+
+.add_data__collection-item-select:active {
+    background-color: #e1ff00;
 }

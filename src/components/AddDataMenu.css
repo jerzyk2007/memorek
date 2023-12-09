@@ -1,0 +1,55 @@
+.add_data_menu {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.add_data_menu-title {
+    text-align: center;
+    padding: 5px 0px;
+    margin: 10px auto;
+    width: 40%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
+    background-color: rgb(92, 201, 87);
+    user-select: none;
+}
+
+.add_data_menu__info {
+    margin: 10px 0;
+}
+
+.add_data_menu__text {
+    display: block;
+    padding: 10px;
+    font-size: 1.2rem;
+    text-align: justify;
+}
+
+.add_data_menu__buttons {
+    display: flex;
+}
+
+.add_data_menu-button {
+    display: block;
+    margin: 0 auto;
+    border: none;
+    padding: 10px;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgb(106, 132, 134);
+    background-color: rgb(140, 190, 228);
+}
+
+.add_data_menu-button:active {
+    background-color: #e1ff00;
+}
+
+.add_data_menu__buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.add_data_menu-button-link {
+    text-decoration: none;
+}
