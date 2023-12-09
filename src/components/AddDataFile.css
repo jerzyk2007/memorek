@@ -44,3 +44,58 @@
     color: #fff;
     padding: 5px 0;
 }
+
+.add_data_file__buttons {
+    width: 95%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.add_data_file__buttons--cancel,
+.add_data_file__buttons--add {
+    font-size: 1rem;
+    padding: 5px 10px;
+    min-width: 25%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px 2px rgb(106, 132, 134);
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.add_data_file__buttons--add {
+    background-color: #43c752;
+}
+
+.add_data_file-result-warning {
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.add_data_file__options-buttons {
+    width: 95%;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.add_data_file__options-buttons--ok,
+.add_data_file__options-buttons--create {
+    padding: 10px 0;
+    margin: 10px 0;
+    width: 95%;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px 2px rgb(106, 132, 134);
+    cursor: pointer;
+}
+
+.add_data_file__options-buttons--ok:active,
+.add_data_file__options-buttons--create:active {
+    background-color: #e1ff00;
+}

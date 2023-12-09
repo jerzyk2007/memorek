@@ -10,19 +10,25 @@ const AddDataSingle = ({ addType }) => {
     const [selectAddType, setSelectAddType] = useState('');
     const [checkCollectionName, setCheckCollectionName] = useState(false);
     const [errorName, setErrorName] = useState('');
-    const [selectCollection, setSelectCollection] = useState('');
+    const [selectCollection, setSelectCollection] = useState({
+        name: '',
+        count: null
+    });
     const [newCollectionName, setNewCollectionName] = useState('');
 
 
     const handleCollection = (info) => {
         setSelectAddType(info);
-        setSelectCollection('');
+        setSelectCollection({});
         setNewCollectionName('');
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setSelectCollection(newCollectionName);
+        setSelectCollection({
+            name: newCollectionName,
+            count: 0
+        });
     };
 
     const collectionItem = collectionsData.map((item, index) =>
@@ -31,7 +37,10 @@ const AddDataSingle = ({ addType }) => {
             <span className="add_data__collection-item-name">{item.name}</span>
             <span className="add_data__collection-item-count">{item.count}/50</span>
             <button className="add_data__collection-item-select" disabled={item.count >= 50 ? true : false}
-                onClick={() => setSelectCollection(item.name)}
+                onClick={() => setSelectCollection({
+                    name: item.name,
+                    count: item.count
+                })}
             >Select</button>
         </section>
     )
@@ -71,7 +80,7 @@ const AddDataSingle = ({ addType }) => {
                     <button className='add_data__collections-button' onClick={() => { handleCollection('new'); }} >New collection</button>
                 </section>
 
-                {selectAddType === "new" && !selectCollection &&
+                {selectAddType === "new" && !selectCollection.name &&
                     < section className='add_data__collections-select'>
                         <label className='add_data__collections-select-warning'>{errorName}</label>
                         <form onSubmit={handleSubmit}>
@@ -90,21 +99,22 @@ const AddDataSingle = ({ addType }) => {
                         </form>
                     </section>}
 
-                {selectAddType === "complete" && !selectCollection &&
+                {selectAddType === "complete" && !selectCollection.name &&
                     <section className="add_data-collections-list">
                         {collectionItem}
                     </section>}
 
-                {selectCollection && addType === "single" &&
+                {selectCollection.name && addType === "single" &&
                     <AddDataPhrase
-                        nameCollection={selectCollection}
-                        setNameCollection={setSelectCollection}
+                        selectCollection={selectCollection}
+                        setSelectCollection={setSelectCollection}
                     />}
 
-                {selectCollection && addType === "file" &&
+                {selectCollection.name && addType === "file" &&
                     <AddDataFile
-                        nameCollection={selectCollection}
-                        setNameCollection={setSelectCollection}
+                        selectCollection={selectCollection}
+                        setSelectCollection={setSelectCollection}
+                        name={collectionsData.map(colection => colection.name)}
                     />}
 
             </section>

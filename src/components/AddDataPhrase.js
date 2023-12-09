@@ -3,7 +3,7 @@ import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import useData from './hooks/useData';
 import './AddDataPhrase.css';
 
-const AddDataPhrase = ({ nameCollection, setNameCollection }) => {
+const AddDataPhrase = ({ selectCollection, setSelectCollection }) => {
     const axiosPrivate = useAxiosPrivate();
     const { fetchCollectionsData } = useData();
 
@@ -17,7 +17,10 @@ const AddDataPhrase = ({ nameCollection, setNameCollection }) => {
     const [isAdding, setIsAdding] = useState(false);
 
     const handleCancel = () => {
-        setNameCollection('');
+        setSelectCollection({
+            name: '',
+            count: null
+        });
     };
 
     const handleAdd = async () => {
@@ -27,13 +30,16 @@ const AddDataPhrase = ({ nameCollection, setNameCollection }) => {
         try {
             setIsAdding(true);
             await axiosPrivate.post('/add-data/single',
-                JSON.stringify({ nameCollection, newPhrase }),
+                JSON.stringify({ collection: selectCollection.name, newPhrase }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true,
                 }
             );
-            setNameCollection('');
+            setSelectCollection({
+                name: '',
+                count: null
+            });
             await fetchCollectionsData();
         }
         catch (err) {

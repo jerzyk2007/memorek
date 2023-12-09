@@ -13,7 +13,6 @@ import ChangeUserName from './ChangeUserName';
 import ChangePassword from './ChangePassword';
 import Register from './Register';
 import AddData from './AddData';
-import AddDataFile from './AddDataFile';
 import './Board.css';
 
 const Board = () => {
