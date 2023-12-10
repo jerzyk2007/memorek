@@ -5,7 +5,7 @@ import AddDataFile from './AddDataFile';
 import './AddData.css';
 
 const AddDataSingle = ({ addType }) => {
-    const { collectionsData } = useData();
+    const { collectionsData, fetchCollectionsData } = useData();
 
     const [selectAddType, setSelectAddType] = useState('');
     const [checkCollectionName, setCheckCollectionName] = useState(false);
@@ -64,6 +64,7 @@ const AddDataSingle = ({ addType }) => {
 
     useEffect(() => {
         setNewCollectionName('');
+        fetchCollectionsData();
     }, [selectCollection, selectAddType]);
 
 

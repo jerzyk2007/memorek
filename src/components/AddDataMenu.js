@@ -20,7 +20,7 @@ const AddData = () => {
                     Only data from the first sheet will be added. <br />
                     If there are more than 50 rows in the Excel file, you will be asked whether only the first 50 rows should be added or if another collection should be added automatically (with the same name but with number 2 or greater). <br />
                     You can also add data from a file to incomplete collections; the program will check for duplicates.<br />
-                    Format: cell A1 - 'your-question', B1 - 'your-answer', A2 - 'your-question', B2 - 'your-answer', and so on. <br /> <strong>The suggested order is question: the language you are learning, answer: the language you know. <br /> You can choose your own order, but remember that the entire collection should be written in this format.</strong>
+                    Format: cell A1 - question, cell B1 - answer, cell A2 - 'your-question', B2 - 'your-answer', A3 - 'your-question', B3 - 'your-answer', and so on. <br /> <strong>The suggested order is question: the language you are learning, answer: the language you know. <br /> You can choose your own order, but remember that the entire collection should be written in this format.</strong>
                 </span>
                 <section className="add_data_menu__buttons">
                     <Link to="/add-data/single" className="add_data_menu-button-link" >
