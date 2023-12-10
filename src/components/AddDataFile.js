@@ -9,11 +9,10 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
     const [phrases, setPhrases] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [checkAdd, setCheckAdd] = useState(false);
-    const [collectionsName, setCollections] = useState(selectCollection.name);
     const [createCollections, setCreateCollections] = useState(false);
+    const [newPhraseCollection, setNewPhraseCollection] = useState([]);
 
     const handleCancel = () => {
-        console.log(phrases.length);
         setSelectCollection({
             name: '',
             count: null
@@ -26,16 +25,46 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
         setCheckAdd(true);
     };
 
-    const handleCreateCollections = () => {
+    const collectionsCounter = () => {
+        const distribution = [50 - selectCollection.count];
+        let remainingRecords = phrases.length - 50 + selectCollection.count;
+        while (remainingRecords > 0) {
+            const newCount = Math.min(50, remainingRecords);
+            distribution.push(newCount);
+            remainingRecords -= newCount;
+        };
+        return distribution;
+    };
+
+    const collectionsName = (counter) => {
+        const distribution = [selectCollection.name];
+        let version = 1;
+        let proposedName = selectCollection.name;
+
+        while (distribution.length !== counter) {
+            if (name.includes(`${proposedName} v${version}`)) {
+                version++;
+            } else {
+                distribution.push(`${proposedName} v${version}`);
+                version++;
+            }
+        }
+        return distribution;
+    };
+
+    const handleCreateCollections = async () => {
         setCreateCollections(true);
-        console.log(selectCollection.name);
-        console.log(name);
+        const counter = await collectionsCounter();
+        const newName = await collectionsName(counter.length);
+        const mergedArrayMap = newName.map((name, index) => ({ name, count: counter[index] }));
+        setNewPhraseCollection(mergedArrayMap);
+        setCheckAdd(true);
     };
 
     const handleAddPhrase = async () => {
         try {
             if (!createCollections) {
-                const response = await axiosPrivate.post('/add-data/manyPhrases',
+                await axiosPrivate.post('/add-data/manyPhrases',
                     JSON.stringify({ collection: selectCollection.name, phrases }),
                     {
                         headers: { 'Content-Type': 'application/json' },
@@ -46,6 +75,8 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                     name: '',
                     count: null
                 });
+            } else {
+                console.log('create');
             }
         }
         catch (err) {
@@ -102,10 +133,7 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                 setErrorMessage('No valid data found in the Excel file.');
                 return;
             }
-
-
             setPhrases(excelData.slice(1));
-            console.log(excelData.slice(1));
         };
 
         reader.readAsArrayBuffer(file);
@@ -142,7 +170,6 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                 <input type="file" name="uploadfile" id="xlsx" style={{ display: "none" }} onChange={handleReadExcelFile} />
                 <label htmlFor="xlsx" className="add_data_file-click-me">Click me to upload xlsx file</label>
                 {!errorMessage ?
-                    // {errorMessage.length === 0 ?
                     <>
                         <p className="add_data_file-info">Collection
                             <span style={{ fontWeight: "bold" }}> {selectCollection.name} </span>
@@ -171,7 +198,14 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                     {50 - selectCollection.count < phrases.length && !errorMessage && createCollections &&
                         <>
                             < section className="add_data_file__options">
-                                <label htmlFor="">ok</label>
+
+                                {newPhraseCollection.map((phrase, index) => (
+                                    <section className="add_data_file__options-name-count" key={index}>
+                                        <span className="add_data_file__options-name-count--name" >{phrase.name}</span>
+                                        <span className="add_data_file__options-name-count--count" >{phrase.count}</span>
+                                    </section>
+                                ))}
+
                             </section>
                         </>}
                     <section className='add_data_file__buttons'>
