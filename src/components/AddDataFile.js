@@ -71,13 +71,20 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                         withCredentials: true,
                     }
                 );
-                setSelectCollection({
-                    name: '',
-                    count: null
-                });
+
             } else {
-                console.log('create');
+                await axiosPrivate.post('/add-data/manyCollectionsManyPhrases',
+                    JSON.stringify({ collections: newPhraseCollection, phrases }),
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true,
+                    }
+                );
             }
+            setSelectCollection({
+                name: '',
+                count: null
+            });
         }
         catch (err) {
             setErrorMessage(err?.response?.data?.message);
