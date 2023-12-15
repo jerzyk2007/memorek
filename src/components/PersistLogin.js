@@ -1,9 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useRefreshToken from "./hooks/useRefreshToken";
-
 import useData from "./hooks/useData";
+import PleaseWait from './PleaseWait';
 import './PersistLogin.css';
+
+
+
 
 const PersistLogin = () => {
     const refresh = useRefreshToken();
@@ -37,10 +40,10 @@ const PersistLogin = () => {
             {!persist
                 ? <Outlet />
                 : isLoading
-                    ? <p className="persist_login">Please wait ...</p>
+                    ? < PleaseWait />
                     : <Outlet />}
         </>
     );
 };
 
-export default PersistLogin;
+export default PersistLogin;;

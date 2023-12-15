@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useData from './hooks/useData';
-import { LuLoader } from "react-icons/lu";
+import PleaseWait from './PleaseWait';
 import './CollectionName.css';
 
 const CollectionName = ({ name, count }) => {
@@ -32,16 +32,15 @@ const CollectionName = ({ name, count }) => {
     };
 
     return (
-        <div className="collection_name">
-            <p className='collection_name-title'>{name}</p>
-            <span className='collection_name-counter'>{count}/50</span>
-            <button className='collection_name-button' onClick={handleLearn}>Learn</button>
-            <button className='collection_name-button collection_name-button--test' onClick={handleTest} disabled={count < 4 ? true : false} style={count < 4 ? { background: "#fff" } : null}>Test</button>
-            {isLoading && <div className='collection_name__loading'>
-                <p className='collection_name__loading-title'>Please wait...</p>
-                <LuLoader className='collection_name__loading-icon' />
-            </div>}
-        </div>
+        <>
+            <section className="collection_name">
+                <p className='collection_name-title'>{name}</p>
+                <span className='collection_name-counter'>{count}/50</span>
+                <button className='collection_name-button' onClick={handleLearn}>Learn</button>
+                <button className='collection_name-button collection_name-button--test' onClick={handleTest} disabled={count < 4 ? true : false} style={count < 4 ? { background: "#fff" } : null}>Test</button>
+                {isLoading && <PleaseWait />}
+            </section >
+        </>
     );
 };
 

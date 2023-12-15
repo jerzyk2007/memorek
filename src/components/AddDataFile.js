@@ -228,7 +228,7 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                     </section>
                 </section>
             </section>
-            <PleaseWait />
+            {isAdded && <PleaseWait />}
         </section >
     );
 };

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import useData from "./hooks/useData";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import SearchItem from "./SearchItem";
-import { LuLoader } from "react-icons/lu";
+import PleaseWait from "./PleaseWait";
 import './Search.css';
 
 const Search = () => {
@@ -84,10 +84,7 @@ const Search = () => {
                 <button className="search-button--search" type="submit">Search</button>
             </form>
             {!isLoading ? (!findPhrases?.length ? <span className="search-warning">No phrases to display</span> : <>{searchPhrases}</>) :
-                <div className="search__loading-title">
-                    <p className='search__loading-title-text'>Please wait...</p>
-                    <LuLoader className='search__loading-title-icon' />
-                </div>
+                <PleaseWait />
             }
         </section>
     );
