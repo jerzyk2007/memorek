@@ -12,6 +12,7 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
     const [checkAdd, setCheckAdd] = useState(false);
     const [createCollections, setCreateCollections] = useState(false);
     const [newPhraseCollection, setNewPhraseCollection] = useState([]);
+    const [isAdded, setIsAdded] = useState(false);
 
     const handleCancel = () => {
         setSelectCollection({
@@ -22,7 +23,6 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
     const handleAddFewer = () => {
         const newPhrases = phrases.slice(0, 50 - selectCollection.count);
         setPhrases(newPhrases);
-        console.log(newPhrases);
         setCheckAdd(true);
     };
 
@@ -64,8 +64,10 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
 
     const handleAddPhrase = async () => {
         try {
-            if (!createCollections) {
-                await axiosPrivate.post('/add-data/manyPhrases',
+            let result = null;
+            if (!createCollections && !isAdded) {
+                setIsAdded(true);
+                result = await axiosPrivate.post('/add-data/manyPhrases',
                     JSON.stringify({ collection: selectCollection.name, phrases }),
                     {
                         headers: { 'Content-Type': 'application/json' },
@@ -73,14 +75,18 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                     }
                 );
 
-            } else {
-                await axiosPrivate.post('/add-data/manyCollectionsManyPhrases',
+            } else if (createCollections && !isAdded) {
+                setIsAdded(true);
+                result = await axiosPrivate.post('/add-data/manyCollectionsManyPhrases',
                     JSON.stringify({ collections: newPhraseCollection, phrases }),
                     {
                         headers: { 'Content-Type': 'application/json' },
                         withCredentials: true,
                     }
                 );
+            }
+            if (result?.status === 200) {
+                setIsAdded(false);
             }
             setSelectCollection({
                 name: '',
