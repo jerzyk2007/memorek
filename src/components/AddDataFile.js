@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { read, utils } from "xlsx";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
+import PleaseWait from './PleaseWait';
 import './AddDataFile.css';
 
 const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
@@ -172,7 +173,7 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
     }, [errorMessage]);
 
     return (
-        <section className="add_data_file">
+        <section className="add_data_file" >
             <section className="add_data_file-file">
                 <input type="file" name="uploadfile" id="xlsx" style={{ display: "none" }} onChange={handleReadExcelFile} />
                 <label htmlFor="xlsx" className="add_data_file-click-me">Click me to upload xlsx file</label>
@@ -221,7 +222,7 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                     </section>
                 </section>
             </section>
-
+            <PleaseWait />
         </section >
     );
 };
