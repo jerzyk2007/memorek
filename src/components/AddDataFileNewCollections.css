@@ -1,0 +1,23 @@
+.add_data_file_new_collections__options-name-count {
+    width: 95%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 10px;
+}
+
+.add_data_file_new_collections__options-name-count--name,
+.add_data_file_new_collections__options-name-count--count {
+    min-width: 50%;
+    padding: 5px;
+    margin: 5px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px 2px rgb(106, 132, 134);
+}
+
+.add_data_file_new_collections__options-name-count--count {
+    text-align: center;
+    min-width: 10%;
+    width: auto;
+}

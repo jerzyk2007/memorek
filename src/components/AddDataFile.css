@@ -101,27 +101,14 @@
     background-color: #e1ff00;
 }
 
-.add_data_file__options-name-count {
-    width: 95%;
-    display: flex;
-    justify-content: space-evenly;
+.add_data_file__options-duplicates {
+    padding: 10px 0;
+}
+
+.add_data_file__options-check {
     margin-left: 10px;
-}
+    transform: scale(2);
 
-.add_data_file__options-name-count--name,
-.add_data_file__options-name-count--count {
-    min-width: 50%;
-    padding: 5px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 2px 2px 3px 2px rgb(106, 132, 134);
-}
-
-.add_data_file__options-name-count--count {
-    text-align: center;
-    min-width: 10%;
-    width: auto;
 }
 
 @media screen and (max-width: 500px) {

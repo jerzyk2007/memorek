@@ -2,17 +2,20 @@ import { useState, useEffect } from 'react';
 import { read, utils } from "xlsx";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import PleaseWait from './PleaseWait';
+import AddedPhraseInformation from './AddedPhraseInformation';
+import AddDataFileNewCollections from './AddDataFileNewCollections';
 import './AddDataFile.css';
 
 const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
     const axiosPrivate = useAxiosPrivate();
-
     const [phrases, setPhrases] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [checkAdd, setCheckAdd] = useState(false);
     const [createCollections, setCreateCollections] = useState(false);
     const [newPhraseCollection, setNewPhraseCollection] = useState([]);
     const [isAdded, setIsAdded] = useState(false);
+    const [duplicates, setDuplicates] = useState(false);
+    const [information, setInformation] = useState('');
 
     const handleCancel = () => {
         setSelectCollection({
@@ -62,6 +65,15 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
         setCheckAdd(true);
     };
 
+    const handleAddInformation = () => {
+        setIsAdded(false);
+
+        setSelectCollection({
+            name: '',
+            count: null
+        });
+    };
+
     const handleAddPhrase = async () => {
         try {
             let result = null;
@@ -78,20 +90,24 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
             } else if (createCollections && !isAdded) {
                 setIsAdded(true);
                 result = await axiosPrivate.post('/add-data/manyCollectionsManyPhrases',
-                    JSON.stringify({ collections: newPhraseCollection, phrases }),
+                    JSON.stringify({ collections: newPhraseCollection, phrases, duplicates, name }),
                     {
                         headers: { 'Content-Type': 'application/json' },
                         withCredentials: true,
                     }
                 );
             }
-            if (result?.status === 200) {
+            if (result?.status === 201) {
                 setIsAdded(false);
+
+                setSelectCollection({
+                    name: '',
+                    count: null
+                });
+            } else if (result?.status === 204 || result?.status === 206) {
+                setInformation(result.data.message);
+                // handleAddInformation();
             }
-            setSelectCollection({
-                name: '',
-                count: null
-            });
         }
         catch (err) {
             setErrorMessage(err?.response?.data?.message);
@@ -203,6 +219,16 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                             < section className="add_data_file__options">
                                 <p className='add_data_file-result-warning'>Only <span style={{ color: "red" }}>{50 - selectCollection.count}</span> <span >{50 - selectCollection.count > 1 ? "phrases" : "phrase"}</span> will be created in the <span style={{ color: "red" }}>{selectCollection.name}</span> collection.</p>
                                 <section className="add_data_file__options-buttons">
+                                    <section className="add_data_file__options-duplicates">
+                                        <label htmlFor="duplicate">Don't save duplicates, only for questions.</label>
+                                        <input
+                                            className="add_data_file__options-check"
+                                            id='duplicate'
+                                            type='checkbox'
+                                            value={duplicates}
+                                            onChange={() => setDuplicates(!duplicates)}
+                                        />
+                                    </section>
                                     <button className="add_data_file__options-buttons--ok" onClick={handleAddFewer}>OK, I want only {50 - selectCollection.count}.</button>
                                     <button className="add_data_file__options-buttons--create" onClick={handleCreateCollections}>Create additional collections.</button>
                                 </section>
@@ -214,10 +240,16 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                             < section className="add_data_file__options">
 
                                 {newPhraseCollection.map((phrase, index) => (
-                                    <section className="add_data_file__options-name-count" key={index}>
-                                        <span className="add_data_file__options-name-count--name" >{phrase.name}</span>
-                                        <span className="add_data_file__options-name-count--count" >{phrase.count}</span>
-                                    </section>
+                                    <AddDataFileNewCollections
+                                        key={index}
+                                        index={index}
+                                        name={phrase.name}
+                                        count={phrase.count}
+                                        allCollections={name}
+                                        newPhraseCollection={newPhraseCollection}
+                                        setNewPhraseCollection={setNewPhraseCollection}
+                                    />
+
                                 ))}
 
                             </section>
@@ -228,7 +260,12 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                     </section>
                 </section>
             </section>
-            {isAdded && <PleaseWait />}
+            {isAdded && !information && <PleaseWait />}
+            {information &&
+                <AddedPhraseInformation
+                    message={information}
+                    handleAddInformation={handleAddInformation}
+                />}
         </section >
     );
 };
