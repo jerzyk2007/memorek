@@ -12,7 +12,7 @@ const AddDataSingle = ({ addType }) => {
     const [errorName, setErrorName] = useState('');
     const [selectCollection, setSelectCollection] = useState({
         name: '',
-        count: null
+        count: null,
     });
     const [newCollectionName, setNewCollectionName] = useState('');
 
@@ -27,7 +27,7 @@ const AddDataSingle = ({ addType }) => {
         e.preventDefault();
         setSelectCollection({
             name: newCollectionName,
-            count: 0
+            count: 0,
         });
     };
 
@@ -39,7 +39,7 @@ const AddDataSingle = ({ addType }) => {
             <button className="add_data__collection-item-select" disabled={item.count >= 50 ? true : false}
                 onClick={() => setSelectCollection({
                     name: item.name,
-                    count: item.count
+                    count: item.count,
                 })}
             >Select</button>
         </section>
@@ -48,7 +48,7 @@ const AddDataSingle = ({ addType }) => {
 
     useEffect(() => {
         const check = collectionsData.map(item => item.name);
-        if (newCollectionName.length >= 4) {
+        if (newCollectionName.length >= 4 && !newCollectionName.endsWith(' ')) {
             if (check.some(item => item.toLowerCase() === newCollectionName.toLowerCase())) {
                 setErrorName("The name is occupied.");
                 setCheckCollectionName(false);
@@ -86,6 +86,7 @@ const AddDataSingle = ({ addType }) => {
                         <label className='add_data__collections-select-warning'>{errorName}</label>
                         <form onSubmit={handleSubmit}>
                             <input
+                                style={!checkCollectionName ? { color: "red" } : null}
                                 className='add_data__collections-select-text'
                                 type='text'
                                 placeholder='Enter name - min 4 char.'
@@ -116,6 +117,7 @@ const AddDataSingle = ({ addType }) => {
                         selectCollection={selectCollection}
                         setSelectCollection={setSelectCollection}
                         name={collectionsData.map(colection => colection.name)}
+                        fetchCollectionsData={fetchCollectionsData}
                     />}
 
             </section>

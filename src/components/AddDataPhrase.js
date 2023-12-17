@@ -19,7 +19,7 @@ const AddDataPhrase = ({ selectCollection, setSelectCollection }) => {
     const handleCancel = () => {
         setSelectCollection({
             name: '',
-            count: null
+            count: null,
         });
     };
 
@@ -36,10 +36,7 @@ const AddDataPhrase = ({ selectCollection, setSelectCollection }) => {
                     withCredentials: true,
                 }
             );
-            setSelectCollection({
-                name: '',
-                count: null
-            });
+            handleCancel();
             await fetchCollectionsData();
         }
         catch (err) {

@@ -1,32 +1,49 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { read, utils } from "xlsx";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import PleaseWait from './PleaseWait';
-import AddedPhraseInformation from './AddedPhraseInformation';
 import AddDataFileNewCollections from './AddDataFileNewCollections';
 import './AddDataFile.css';
 
-const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
+const AddDataFile = ({ selectCollection, setSelectCollection, name, fetchCollectionsData }) => {
     const axiosPrivate = useAxiosPrivate();
+    const fileInputRef = useRef(null);
+
     const [phrases, setPhrases] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [checkAdd, setCheckAdd] = useState(false);
     const [createCollections, setCreateCollections] = useState(false);
     const [newPhraseCollection, setNewPhraseCollection] = useState([]);
     const [isAdded, setIsAdded] = useState(false);
-    const [duplicates, setDuplicates] = useState(false);
-    const [information, setInformation] = useState('');
+    const [checkDuplicates, setCheckDuplicates] = useState(false);
+    const [excelVisible, setExcelVisible] = useState(true);
 
     const handleCancel = () => {
+        setIsAdded(false);
         setSelectCollection({
             name: '',
-            count: null
+            count: null,
         });
+        fetchCollectionsData();
     };
-    const handleAddFewer = () => {
+    const handleAddFewer = async () => {
         const newPhrases = phrases.slice(0, 50 - selectCollection.count);
-        setPhrases(newPhrases);
-        setCheckAdd(true);
+        setIsAdded(true);
+        try {
+            await axiosPrivate.post('/add-data/manyPhrases',
+                JSON.stringify({ collection: selectCollection.name, phrases: newPhrases }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                }
+            );
+            setIsAdded(false);
+            handleCancel();
+        }
+        catch (err) {
+            setErrorMessage(err?.response?.data?.message);
+            console.error(err);
+        }
     };
 
     const collectionsCounter = () => {
@@ -65,49 +82,21 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
         setCheckAdd(true);
     };
 
-    const handleAddInformation = () => {
-        setIsAdded(false);
-
-        setSelectCollection({
-            name: '',
-            count: null
-        });
-    };
-
     const handleAddPhrase = async () => {
+        setIsAdded(true);
         try {
-            let result = null;
-            if (!createCollections && !isAdded) {
+            if (createCollections && !isAdded) {
                 setIsAdded(true);
-                result = await axiosPrivate.post('/add-data/manyPhrases',
-                    JSON.stringify({ collection: selectCollection.name, phrases }),
-                    {
-                        headers: { 'Content-Type': 'application/json' },
-                        withCredentials: true,
-                    }
-                );
-
-            } else if (createCollections && !isAdded) {
-                setIsAdded(true);
-                result = await axiosPrivate.post('/add-data/manyCollectionsManyPhrases',
-                    JSON.stringify({ collections: newPhraseCollection, phrases, duplicates, name }),
+                await axiosPrivate.post('/add-data/manyCollectionsManyPhrases',
+                    JSON.stringify({ collections: newPhraseCollection, phrases }),
                     {
                         headers: { 'Content-Type': 'application/json' },
                         withCredentials: true,
                     }
                 );
             }
-            if (result?.status === 201) {
-                setIsAdded(false);
-
-                setSelectCollection({
-                    name: '',
-                    count: null
-                });
-            } else if (result?.status === 204 || result?.status === 206) {
-                setInformation(result.data.message);
-                // handleAddInformation();
-            }
+            setIsAdded(false);
+            handleCancel();
         }
         catch (err) {
             setErrorMessage(err?.response?.data?.message);
@@ -116,6 +105,9 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
     };
 
     const handleReadExcelFile = async (e) => {
+        setCheckDuplicates(false);
+        setExcelVisible(false);
+
         setErrorMessage('');
         const file = e.target.files[0];
 
@@ -167,6 +159,9 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
         };
 
         reader.readAsArrayBuffer(file);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
     };
 
 
@@ -194,11 +189,32 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
         }
     }, [errorMessage]);
 
+    useEffect(() => {
+        const removeDuplicates = async () => {
+            setIsAdded(true);
+
+            const result = await axiosPrivate.post('/add-data/checkDuplicates',
+                JSON.stringify({ phrases, name }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                }
+            );
+            setPhrases(result.data);
+            setIsAdded(false);
+        };
+        if (checkDuplicates) {
+            removeDuplicates();
+        }
+    }, [checkDuplicates]);
+
     return (
         <section className="add_data_file" >
             <section className="add_data_file-file">
-                <input type="file" name="uploadfile" id="xlsx" style={{ display: "none" }} onChange={handleReadExcelFile} />
-                <label htmlFor="xlsx" className="add_data_file-click-me">Click me to upload xlsx file</label>
+                {excelVisible && <>
+                    <input type="file" name="uploadfile" id="xlsx" style={{ display: "none" }} onChange={handleReadExcelFile} ref={fileInputRef} />
+                    <label htmlFor="xlsx" className="add_data_file-click-me">Click me to upload xlsx file</label>
+                </>}
                 {!errorMessage ?
                     <>
                         <p className="add_data_file-info">Collection
@@ -225,8 +241,8 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                                             className="add_data_file__options-check"
                                             id='duplicate'
                                             type='checkbox'
-                                            value={duplicates}
-                                            onChange={() => setDuplicates(!duplicates)}
+                                            checked={checkDuplicates}
+                                            onChange={() => setCheckDuplicates(!checkDuplicates)}
                                         />
                                     </section>
                                     <button className="add_data_file__options-buttons--ok" onClick={handleAddFewer}>OK, I want only {50 - selectCollection.count}.</button>
@@ -248,6 +264,7 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                                         allCollections={name}
                                         newPhraseCollection={newPhraseCollection}
                                         setNewPhraseCollection={setNewPhraseCollection}
+                                        setCheckAdd={setCheckAdd}
                                     />
 
                                 ))}
@@ -260,12 +277,8 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name }) => {
                     </section>
                 </section>
             </section>
-            {isAdded && !information && <PleaseWait />}
-            {information &&
-                <AddedPhraseInformation
-                    message={information}
-                    handleAddInformation={handleAddInformation}
-                />}
+            {isAdded && <PleaseWait />}
+
         </section >
     );
 };
