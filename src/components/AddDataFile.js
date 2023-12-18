@@ -30,13 +30,22 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name, fetchCollect
         const newPhrases = phrases.slice(0, 50 - selectCollection.count);
         setIsAdded(true);
         try {
-            await axiosPrivate.post('/add-data/manyPhrases',
-                JSON.stringify({ collection: selectCollection.name, phrases: newPhrases }),
+            await axiosPrivate.get('/add-data/manyPhrases',
+
                 {
+                    params: { data: JSON.stringify({ collection: selectCollection.name, phrases: newPhrases }) },
+
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true,
                 }
             );
+            // await axiosPrivate.post('/add-data/manyPhrases',
+            //     JSON.stringify({ collection: selectCollection.name, phrases: newPhrases }),
+            //     {
+            //         headers: { 'Content-Type': 'application/json' },
+            //         withCredentials: true,
+            //     }
+            // );
             setIsAdded(false);
             handleCancel();
         }
@@ -87,13 +96,14 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name, fetchCollect
         try {
             if (createCollections && !isAdded) {
                 setIsAdded(true);
-                await axiosPrivate.post('/add-data/manyCollectionsManyPhrases',
-                    JSON.stringify({ collections: newPhraseCollection, phrases }),
+                await axiosPrivate.get('/add-data/manyCollectionsManyPhrases',
                     {
+                        params: { data: JSON.stringify({ newPhraseCollection, phrases }) },
                         headers: { 'Content-Type': 'application/json' },
                         withCredentials: true,
                     }
                 );
+
             }
             setIsAdded(false);
             handleCancel();
@@ -193,9 +203,10 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name, fetchCollect
         const removeDuplicates = async () => {
             setIsAdded(true);
 
-            const result = await axiosPrivate.post('/add-data/checkDuplicates',
-                JSON.stringify({ phrases, name }),
+            const result = await axiosPrivate.get('/add-data/checkDuplicates',
+                // JSON.stringify({ phrases, name }),
                 {
+                    params: { phrases, name },
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true,
                 }
