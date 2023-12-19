@@ -15,7 +15,7 @@ const AddDataSingle = ({ addType }) => {
         count: null,
     });
     const [newCollectionName, setNewCollectionName] = useState('');
-
+    const COLLECTION_NAME_REGEX = /^[a-zA-Z0-9_@ ]{4,23}$/;
 
     const handleCollection = (info) => {
         setSelectAddType(info);
@@ -48,7 +48,8 @@ const AddDataSingle = ({ addType }) => {
 
     useEffect(() => {
         const check = collectionsData.map(item => item.name);
-        if (newCollectionName.length >= 4 && !newCollectionName.endsWith(' ')) {
+        const checkName = COLLECTION_NAME_REGEX.test(newCollectionName);
+        if (checkName && newCollectionName.length >= 4 && !newCollectionName.endsWith(' ')) {
             if (check.some(item => item.toLowerCase() === newCollectionName.toLowerCase())) {
                 setErrorName("The name is occupied.");
                 setCheckCollectionName(false);

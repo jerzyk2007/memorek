@@ -3,15 +3,17 @@ import './AddDataFileNewCollections.css';
 
 const AddDataFileNewCollections = ({ index, name, count, newPhraseCollection, setNewPhraseCollection, allCollections, setCheckAdd }) => {
     const [errorName, setErrorName] = useState(false);
+    const COLLECTION_NAME_REGEX = /^[a-zA-Z0-9_@ ]{4,23}$/;
 
     const checkCollectionName = (newName) => {
-        if (newName.length >= 4 && !newName.endsWith(' ')) {
+        const checkName = COLLECTION_NAME_REGEX.test(newName);
+        if (checkName && newName.length >= 4 && !newName.endsWith(' ')) {
             setErrorName(false);
-            if (allCollections.includes(newName)) {
+            if (allCollections.includes(newName.toLowerCase())) {
                 setErrorName(true);
             }
             const newCollectionNames = newPhraseCollection.map(phrase => phrase.name);
-            const filteredCollections = newCollectionNames.filter(name => name === newName).length;
+            const filteredCollections = newCollectionNames.filter(name => name.toLowerCase() === newName.toLowerCase()).length;
             if (filteredCollections > 1) {
                 setErrorName(true);
             }
