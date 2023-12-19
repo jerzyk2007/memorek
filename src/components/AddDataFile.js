@@ -204,9 +204,8 @@ const AddDataFile = ({ selectCollection, setSelectCollection, name, fetchCollect
             setIsAdded(true);
 
             const result = await axiosPrivate.get('/add-data/checkDuplicates',
-                // JSON.stringify({ phrases, name }),
                 {
-                    params: { phrases, name },
+                    params: { data: JSON.stringify({ phrases, name }) },
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true,
                 }
